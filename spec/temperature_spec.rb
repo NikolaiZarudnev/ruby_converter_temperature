@@ -12,7 +12,7 @@ RSpec.describe ConvertTemperature do
       it { is_expected.to eq 50.0 }
     end
 
-    context 'F to K convert' do
+    context 'K to C convert' do
       subject { ConvertTemperature.new('K', 'C', 10).convert }
       it { is_expected.to eq -263.15 }
     end
