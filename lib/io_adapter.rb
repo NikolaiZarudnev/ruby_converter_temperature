@@ -1,4 +1,4 @@
-class IOInterface
+class IOAdapter
   def puts_menu
       puts "Сhoose an action:
               1. Convert from C
@@ -7,7 +7,7 @@ class IOInterface
               4. Exit"
   end
 
-  def choice_scale()
+  def choose_scale()
     puts_menu
     choice = gets.chomp
     return choice
