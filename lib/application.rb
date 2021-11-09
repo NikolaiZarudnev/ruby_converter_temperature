@@ -1,47 +1,31 @@
 require './lib/convert'
-class Application
-  def puts_menu
-    puts "Сhoose an action:
-			1. Convert from C
-			2. Convert from K
-			3. Convert from F
-			4. Exit"
-  end
-  puts_menu
+require './lib/io_interface'
 
-  choice = gets.chomp
-  while choice != 4
-    case choice
-    when '1'
-      puts 'Enter value'
-      t = gets.chomp
-      t = Float(t)
-      res = ConvertTemperature.new('C', 'K', t).converter
-      puts('K = ' << res.to_s)
-      res = ConvertTemperature.new('C', 'F', t).converter
-      puts('F = ' << res.to_s)
-      break puts_menu
-    when '2'
-      puts 'Enter value'
-      t = gets.chomp
-      t = Float(t)
-      res = ConvertTemperature.new('K', 'C', t).converter
-      puts('C = ' << res.to_s)
-      res = ConvertTemperature.new('K', 'F', t).converter
-      puts('F = ' << res.to_s)
-      break puts_menu
-    when '3'
-      puts 'Enter value'
-      t = gets.chomp
-      t = Float(t)
-      res = ConvertTemperature.new('F', 'C', t).converter
-      puts('C = ' << res.to_s)
-      res = ConvertTemperature.new('F', 'K', t).converter
-      puts('K = ' << res.to_s)
-      break puts_menu
-    else
-      puts 'Invalid Input/Choice'
-      puts_menu
+class Application
+  def run
+    io_inteface = IOInterface.new
+    choice = io_inteface.choice_scale
+    while choice != 4
+      case choice
+        when '1'
+          t = io_inteface.input_value
+          io_inteface.output_value('K', ConvertTemperature.new('C', 'K', t).convert)
+          io_inteface.output_value('F', ConvertTemperature.new('C', 'F', t).convert)
+        break
+        when '2'
+          t = io_inteface.input_value
+          io_inteface.output_value('C', ConvertTemperature.new('K', 'C', t).convert)
+          io_inteface.output_value('F', ConvertTemperature.new('K', 'F', t).convert)
+        break
+        when '3'
+          t = io_inteface.input_value
+          io_inteface.output_value('C', ConvertTemperature.new('F', 'C', t).convert)
+          io_inteface.output_value('K', ConvertTemperature.new('F', 'K', t).convert)
+        break
+        else
+          puts 'Invalid Choice'
+      end
+      choice = io_inteface.choice_scale
     end
   end
 end
