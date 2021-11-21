@@ -1,32 +1,59 @@
 class IOAdapter
   def puts_menu
-      puts "Сhoose an action:
-              1. Convert from C
-              2. Convert from K
-              3. Convert from F
-              4. Exit"
+    puts "Сhoose an action:\n1. Convert from C\n2. Convert from K\n3. Convert from F\n4. Exit\n"
   end
-
-  def choose_scale()
+  def invalid_input(func, var)
+    
+  end
+  def input_scale
     puts_menu
-    choice = gets.chomp
-    return choice
+    menu = { "1" => "C",
+             "2" => "K",
+             "3" => "F",
+             "4" => "EXIT"}
+    ch = gets.chomp
+    if check_choice(menu[ch]) == false
+      input_scale
+    else
+      menu[ch]
+    end
   end
-
-  def input_value()
+  def output_scale(choice)
+    menu = { "C" => ["K","F"],
+            "K" => ["C","F"],
+            "F" => ["C","K"]}
+    menu[choice]
+  end
+  def input_value(choice)
     puts 'Enter value'
+    print (choice + " = ")
     t = gets.chomp
-    return Float(t)
+    if check_value(t)
+      Float(t)
+    else
+      input_value(choice)
+    end
   end
-
   def output_value(scale, res)
     puts(scale << ' = ' << res.to_s)
   end
-  
-  #def choice_scale(choice)
-  #  convert_temper = { '1' => ConvertTemperature.new('C', 'K', t).convert,
-  #                     '2' => ConvertTemperature.new('K', 'C', t).convert,
-  #                     '3' => ConvertTemperature.new('F', 'C', t).convert}
-  #  convert_temper[choice].call()
-  #end
+
+  def check_value(value)
+    Float(value) != nil
+    rescue
+      puts ("Invalid input")
+      false
+  end
+  def check_choice(choice)
+    case choice
+    when "EXIT"
+      puts ("Good luck")
+      abort
+    when nil
+      puts ("Invalid input")
+      return false
+    else
+      return true
+    end
+  end
 end

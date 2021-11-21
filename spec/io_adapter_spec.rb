@@ -1,8 +1,6 @@
 require './lib/io_adapter'
 
 RSpec.describe IOAdapter do
-  #$stdin = File.open('./test-data/data.txt')
-
   describe '#input_value' do
     subject { IOAdapter.new.input_value }
     it { is_expected.to eq 10 }
