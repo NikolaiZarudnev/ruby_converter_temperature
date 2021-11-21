@@ -1,4 +1,3 @@
-
 class ConvertTemperature
   def initialize(from_value, to_value, value)
     @from_value = from_value
